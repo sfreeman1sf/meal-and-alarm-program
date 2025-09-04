@@ -11,14 +11,17 @@ Run with:
 ```bash
 python meal_calculator.py
 
-Part 2: Alarm Clock
 
-Asks the user for the current time (0–23).
+## Part 2: Alarm Clock
 
-Asks how many hours to wait.
+-Asks the user for the current time (0–23).
 
-Calculates and displays when the alarm will go off.
+-Asks how many hours to wait.
+
+-Calculates and displays when the alarm will go off.
 
 Run with:
 ```bash
 python alarm_clock.py
+
+---
