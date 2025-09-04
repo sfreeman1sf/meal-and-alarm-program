@@ -1,7 +1,12 @@
-# Part 1: Meal Calculator
 
-# Ask user for food charge
-food_charge = float(input("Enter the charge for the food: $"))
+# Part 1: Meal Calculator
+try:
+    food_charge = float(input("Enter the charge for the food (e.g., 50.00): "))
+    if food_charge < 0:
+        raise ValueError("Charge must be non-negative")
+except ValueError:
+    print("Invalid input! Please enter a valid number.")
+    exit()
 
 # Calculate amounts
 tip = food_charge * 0.18
