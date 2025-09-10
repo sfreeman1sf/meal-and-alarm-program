@@ -1,56 +1,59 @@
-# CSC500 Module 3: Meal and Alarm Programs
+# CSC500 - Module 3 Portfolio Milestone: Online Shopping Cart
 
-This repository contains two Python programs for the CSC500 Module 3 Critical Thinking assignment. The programs implement a meal cost calculator and a 24-hour alarm clock calculator, meeting the requirements to calculate costs with tip/tax and time with modulo arithmetic.
+## Overview
+This project implements a simple online shopping cart that handles two items. Users can input the name, price, and quantity for each item, and the program calculates and displays the total cost. The code includes input validation to handle invalid entries and ensure a robust user experience.
 
-## Project Overview
-- **Part 1: Meal Calculator**: Prompts for a food charge, calculates an 18% tip and 7% sales tax, and displays the breakdown and total, formatted to two decimal places.
-- **Part 2: Alarm Clock**: Prompts for the current time (0–23) and hours to wait, calculates the alarm time in 24-hour format, and includes days for large wait times.
-- **Submission**: Includes pseudocode, source code, screenshots, and this Git repository, submitted in a Word document.
+## Features
+- Supports entry of two items with name, price, and quantity.
+- Validates inputs to prevent negative values and non-numeric entries.
+- Formats monetary output (e.g., `$1` or `$2.50`).
+- Displays the cost for each item and the total cost.
 
+## How to Run
+1. Ensure Python is installed on your system (check with `python --version`).
+2. Save the script as `shopping_cart.py` in a directory (e.g., `C:\Users\Bizec\Downloads\meal-and-alarm-program`).
+3. Open the directory in Visual Studio Code.
+4. Open a terminal in VS Code and navigate to the directory:cd C:\Users\Bizec\Downloads\meal-and-alarm-program
+5. Run the script:python shopping_cart.py
+6. Follow the prompts to enter item details (name, price, quantity) for two items.
 
+## Example Usage
+Item 1
+Enter the item name:
+Apple
+Enter the item price:
+2.50
+Enter the item quantity:
+3
+Item 2
+Enter the item name:
+Banana
+Enter the item price:
+1
+Enter the item quantity:
+5
+TOTAL COST
+Apple 3 @ $2.50 = $7.50
+Banana 5 @ $1 = $5
+Total: $12.50
+## Code Explanation
+The program uses a class `ItemToPurchase` to store item details (name, price, quantity) and includes the following logic:
+- **Input Handling**: Uses functions (`get_valid_string`, `get_valid_float`, `get_valid_int`) to validate user input, preventing empty strings, negative values, and non-numeric entries. It also handles `EOFError` for interrupted input.
+- **Cost Calculation**: Multiplies price by quantity for each item and sums the totals.
+- **Output Formatting**: The `fmt_money` function formats monetary values appropriately.
+- **Error Handling**: Includes try-catch blocks to manage exceptions like `KeyboardInterrupt` or invalid inputs.
 
-## Part 1: Meal Calculator
-### Description
-- Prompts user for the food charge (e.g., 50.00).
-- Calculates:
-  - Tip: 18% of food charge
-  - Sales tax: 7% of food charge
-  - Total: Food charge + tip + tax
-- Validates non-negative input (exits on negative).
-- Displays amounts formatted to two decimal places.
+## Pseudocode Reference
+Refer to the `pseudocode.txt` file in this directory for a high-level description of the program's logic.
 
-### Run
-```bash
-python meal_calculator.py
+## Requirements
+- Python 3.x
+- Visual Studio Code (recommended for running and debugging)
 
-### Example output
-Enter the charge for the food (e.g., 50.00): 50
-Food charge: $50.00
-Tip (18%): $9.00
-Tax (7%): $3.50
-Total amount: $62.50
----
+## Notes
+- Ensure the file is saved before running to avoid "No such file or directory" errors.
+- If you encounter an `EOFError`, run the script in the integrated terminal and provide input manually.
 
-## Part 2: Alarm Clock
-Description
+## Author
+- Stacey Freeman - Date: September 10, 2025
 
-Prompts for current time (0–23) and hours to wait.
-Calculates alarm time using modulo 24 for hours.
-Displays days if wait time exceeds 24 hours.
-Validates time (0–23) and non-negative wait time (exits on invalid).
-Outputs time in HH:00 format (24-hour).
-
-### Run
-```bash
-python alarm_clock.py
-
-### Example output
-Enter the current time (0-23): 13
-Enter the number of hours to wait: 50
-The alarm will go off at 15:00 in 2 day(s) (24-hour format).
-
-## Files
-
-meal_calculator.py: Source code for Part 1.
-alarm_clock.py: Source code for Part 2.
-README.md: This file.

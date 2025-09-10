@@ -1,0 +1,115 @@
+BEGIN SHOPPING CART PROGRAM
+
+    // Define the ItemToPurchase class to store item details
+    CREATE CLASS ItemToPurchase
+        // Initialize with default values: name = "none", price = 0.0, quantity = 0
+        CONSTRUCT ItemToPurchase WITH parameters (item_name, item_price, item_quantity)
+            SET item_name TO input item_name
+            SET item_price TO convert input item_price to float
+            SET item_quantity TO convert input item_quantity to integer
+        END CONSTRUCT
+
+        // Method to print the cost of an item
+        DEFINE METHOD print_item_cost
+            CALCULATE total AS item_price * item_quantity
+            DISPLAY item_name, item_quantity, "@ $", format_money(item_price), " = $", format_money(total)
+        END METHOD
+    END CLASS
+
+    // Function to format monetary values
+    DEFINE FUNCTION format_money WITH parameter (amount)
+        IF amount is an integer THEN
+            RETURN amount as integer string with "$" prefix
+        ELSE
+            RETURN amount as string with 2 decimal places and "$" prefix
+        END IF
+    END FUNCTION
+
+    // Function to get valid string input
+    DEFINE FUNCTION get_valid_string WITH parameter (prompt)
+        REPEAT
+            TRY
+                PROMPT user with prompt
+                GET input as value
+                IF value is empty THEN
+                    DISPLAY "Input cannot be empty. Please try again."
+                ELSE
+                    RETURN value
+                END IF
+            CATCH EOFError
+                DISPLAY "Input interrupted (EOF). Please try again."
+            END TRY
+        UNTIL valid input is received
+    END FUNCTION
+
+    // Function to get valid float input
+    DEFINE FUNCTION get_valid_float WITH parameter (prompt)
+        REPEAT
+            TRY
+                PROMPT user with prompt
+                GET input as value
+                CONVERT value to float
+                IF value is negative THEN
+                    DISPLAY "Value cannot be negative. Please try again."
+                ELSE
+                    RETURN value
+                END IF
+            CATCH ValueError
+                DISPLAY "Invalid input. Please enter a number."
+            CATCH EOFError
+                DISPLAY "Input interrupted (EOF). Please try again."
+            END TRY
+        UNTIL valid float is received
+    END FUNCTION
+
+    // Function to get valid integer input
+    DEFINE FUNCTION get_valid_int WITH parameter (prompt)
+        REPEAT
+            TRY
+                PROMPT user with prompt
+                GET input as value
+                CONVERT value to integer
+                IF value is negative THEN
+                    DISPLAY "Quantity cannot be negative. Please try again."
+                ELSE
+                    RETURN value
+                END IF
+            CATCH ValueError
+                DISPLAY "Invalid input. Please enter a whole number."
+            CATCH EOFError
+                DISPLAY "Input interrupted (EOF). Please try again."
+            END TRY
+        UNTIL valid integer is received
+    END FUNCTION
+
+    // Main program logic
+    BEGIN MAIN
+        TRY
+            // Input for Item 1
+            DISPLAY "Item 1"
+            GET name1 USING get_valid_string("Enter the item name:\n")
+            GET price1 USING get_valid_float("Enter the item price:\n")
+            GET qty1 USING get_valid_int("Enter the item quantity:\n")
+            CREATE item1 AS new ItemToPurchase WITH (name1, price1, qty1)
+
+            // Input for Item 2
+            DISPLAY "\nItem 2"
+            GET name2 USING get_valid_string("Enter the item name:\n")
+            GET price2 USING get_valid_float("Enter the item price:\n")
+            GET qty2 USING get_valid_int("Enter the item quantity:\n")
+            CREATE item2 AS new ItemToPurchase WITH (name2, price2, qty2)
+
+            // Display total cost
+            DISPLAY "\nTOTAL COST"
+            CALL item1.print_item_cost()
+            CALL item2.print_item_cost()
+            CALCULATE total_cost AS (item1.item_price * item1.item_quantity) + (item2.item_price * item2.item_quantity)
+            DISPLAY "\nTotal: $", format_money(total_cost)
+        CATCH KeyboardInterrupt
+            DISPLAY "\nProgram terminated by user."
+        CATCH ANY OTHER EXCEPTION
+            DISPLAY "An unexpected error occurred: ", exception details
+        END TRY
+    END MAIN
+
+END SHOPPING CART PROGRAM
